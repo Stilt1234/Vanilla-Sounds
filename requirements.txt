@@ -1,0 +1,7 @@
+beautifulsoup4==4.14.3
+GitPython==3.1.46
+minecraft_launcher_lib==8.0
+packaging==26.0
+Pillow==12.1.1
+PyGithub==2.8.1
+Requests==2.32.5
