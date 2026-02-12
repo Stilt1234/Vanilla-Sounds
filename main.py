@@ -40,6 +40,7 @@ for v in reversed(list_to_install):
         pass
 
     update_repo.update_repo_readme()
+    update_repo.update_repo_desc()
 
     print(f"Installing minecraft version {v} ...")
     mc.install.install_minecraft_version(v, os.path.join(os.getcwd(), "minecraft"))

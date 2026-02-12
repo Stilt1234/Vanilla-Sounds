@@ -6,9 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 s = requests.Session()
-s.headers.update({
-    'User-Agent': 'Chrome',
-})
+s.headers.update({'User-Agent': 'Chrome',})
 page = s.get("https://minecraft.wiki/w/Pack_format")
 soup = BeautifulSoup(page.text, "html.parser")
 
