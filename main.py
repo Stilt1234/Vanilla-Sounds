@@ -58,5 +58,4 @@ for v in reversed(list_to_install):
 
     print(f"Vanilla Sounds for minecraft version {v} has been successfully created.")
 
-    # TODO: Remove quit() after testing
-    quit()
+print("Vanilla Sounds Resource Pack creation for all the available Minecraft versions has been completed.")
