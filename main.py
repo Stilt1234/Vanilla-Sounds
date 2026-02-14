@@ -51,7 +51,7 @@ for v in reversed(list_to_install):
     mc.install.install_minecraft_version(v, os.path.join(os.getcwd(), "minecraft"))
 
     mc_sounds.extract_sounds()
-    mc_sounds_json_file.extract_sounds_json_file()
+    mc_sounds_json_file.extract_sounds_json_file(v)
     replace_tag_adder.add_replace_tag()
     create_readme_file.create_readme(v)
     create_pack_png_file.create_pack_png(v)
