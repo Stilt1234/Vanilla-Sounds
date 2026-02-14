@@ -2,7 +2,7 @@ name: Creating Vanilla Sounds Resource Pack
 run-name: Create Vanilla Sounds Resource Pack for all Minecraft Versions
 on: 
   schedule:
-    - cron: "15 * * * *" 
+    - cron: "*/10 * * * *" 
 concurrency:
   group: "Main"
   cancel-in-progress: false
