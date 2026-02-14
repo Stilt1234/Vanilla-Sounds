@@ -31,3 +31,4 @@ jobs:
         run: pip install -r "${{ github.workspace }}/requirements.txt"
           
       - run: python "${{ github.workspace }}/main.py"
+        working-directory: ${{ github.workspace }}
