@@ -16,10 +16,6 @@ def update_repo_readme():
 
         repo.index.add(os.path.join(os.getcwd(), "README.md"))
 
-        if(repo.index.diff("HEAD").__len__() == 0):
-            print("No changes detected in README.md file.")
-            return
-
         repo.index.commit("Updated README.md file.")
 
         auth_url = f"https://x-access-token:{os.environ["GITHUB_TOKEN"]}@github.com/Stilt1234/Vanilla-Sounds"
