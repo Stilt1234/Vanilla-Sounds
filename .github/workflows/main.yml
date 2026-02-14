@@ -26,5 +26,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Install required packages
+        run: pip install -r "${{ github.workspace }}/requirements.txt"
           
       - run: python "${{ github.workspace }}/main.py"
