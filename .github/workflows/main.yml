@@ -18,4 +18,12 @@ jobs:
       MODRINTH_VS_API: ${{ secrets.MODRINTH_VS_API }}
       MODRINTH_VS_PAT: ${{ secrets.MODRINTH_VS_PAT }}
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          
       - run: python main.py
