@@ -18,7 +18,7 @@ jobs:
       run:
         working-directory: ${{ github.workspace }}
     env:
-      GITHUB_TOKEN: ${{ GH_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       MODRINTH_VS_API: ${{ secrets.MODRINTH_VS_API }}
       MODRINTH_VS_PAT: ${{ secrets.MODRINTH_VS_PAT }}
     steps:
