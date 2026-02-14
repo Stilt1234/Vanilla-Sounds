@@ -11,7 +11,7 @@ def extract_sounds_json_file():
         with open(glob.glob(os.getcwd()+"\\minecraft\\assets\\indexes\\*.json")[0], "r") as f:
             file : dict = json.load(f)
             for key, value in file["objects"].items():
-                if(key == "minecraft/sounds.json"):
+                if(str(key).__contains__("sounds.json")):
                     hash = value["hash"]
 
         shutil.copy(os.path.join(os.getcwd(), "minecraft", "assets", "objects", f"{hash[:2]}", f"{hash}"), os.path.join(os.getcwd(), "Vanilla Sounds", "assets", "for_resourcepack_creators_sounds.json"))

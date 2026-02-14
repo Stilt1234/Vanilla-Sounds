@@ -27,6 +27,11 @@ def extract_sounds():
         else:
             files = {k : v["hash"] for (k, v) in data["objects"].items() if k.endswith(".ogg")}
             OUTPUT_PATH = os.path.normpath(os.path.join(os.getcwd(), "Vanilla Sounds", "assets", "minecraft", "sounds"))
+
+        if(files.__len__() == 0):
+            files = {k : v["hash"] for (k, v) in data["objects"].items() if k.endswith(".ogg")}
+            OUTPUT_PATH = os.path.normpath(os.path.join(os.getcwd(), "Vanilla Sounds", "assets", "minecraft", "sounds"))
+        
         # # Uncomment to extract all files.
         # files = {k : v["hash"] for (k, v) in data["objects"].items()}
         
@@ -45,3 +50,5 @@ def extract_sounds():
 
             # Copy the file
             shutil.copyfile(src_fpath, dest_fpath)
+
+extract_sounds()
