@@ -18,5 +18,6 @@ def extract_sounds_json_file(v : str):
 
         shutil.copy(os.path.join(os.getcwd(), "minecraft", "assets", "objects", f"{hash[:2]}", f"{hash}"), os.path.join(os.getcwd(), "Vanilla Sounds", "assets", "for_resourcepack_creators_sounds.json"))
         shutil.copy(os.path.join(os.getcwd(), "minecraft", "assets", "objects", f"{hash[:2]}", f"{hash}"), os.path.join(os.getcwd(), "Vanilla Sounds", "assets", "minecraft", "sounds.json"))
+        print("Copied sounds.json file.")
     else:
         print("No sounds.json file found as it is a version before 1.7.2 therefore skipping extracting sounds.json file.")
