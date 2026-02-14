@@ -14,6 +14,7 @@ jobs:
     permissions:
       contents: write
     env:
+      environment: Tokens
       GITHUB_TOKEN: ${{ github.token }}
       MODRINTH_VS_API: ${{ secrets.MODRINTH_VS_API }}
       MODRINTH_VS_PAT: ${{ secrets.MODRINTH_VS_PAT }}
