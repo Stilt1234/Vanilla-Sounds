@@ -50,5 +50,3 @@ def extract_sounds():
 
             # Copy the file
             shutil.copyfile(src_fpath, dest_fpath)
-
-extract_sounds()
