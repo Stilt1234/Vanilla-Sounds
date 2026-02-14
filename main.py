@@ -17,7 +17,6 @@ update_repo.update_repo_desc()
 list_to_install = []
 
 for e in mc.utils.get_version_list():
-    #if(e.get("type") == "release" and version.parse(e.get("id")) >= next(iter(create_pack_mcmeta_file.v_pf)) and float(create_pack_mcmeta_file.get_pack_format(e.get("id"))) > 0.0):
     if(e.get("type") == "release"):
         list_to_install.append(e.get("id"))
 
