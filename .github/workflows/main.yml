@@ -3,6 +3,7 @@ run-name: Create Vanilla Sounds Resource Pack for all Minecraft Versions
 on: 
   schedule:
     - cron: "*/7 * * * *" 
+  workflow_dispatch:
 concurrency:
   group: "Main"
   cancel-in-progress: false
@@ -12,9 +13,26 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: write
+    environment: Tokens
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}
     env:
       GITHUB_TOKEN: ${{ github.token }}
       MODRINTH_VS_API: ${{ secrets.MODRINTH_VS_API }}
       MODRINTH_VS_PAT: ${{ secrets.MODRINTH_VS_PAT }}
     steps:
-      - run: python main.py
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install required packages
+        run: pip install -r "${{ github.workspace }}/requirements.txt"
+          
+      - name: Run main.py
+        working-directory: ${{ github.workspace }}
+        run: python "${{ github.workspace }}/main.py"
