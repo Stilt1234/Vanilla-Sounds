@@ -26,4 +26,4 @@ jobs:
         with:
           python-version: '3.12'
           
-      - run: python main.py
+      - run: python "${{ github.workspace }}/main.py"
