@@ -21,7 +21,7 @@ def update_repo_readme():
         auth_url = f"https://x-access-token:{os.environ["GITHUB_TOKEN"]}@github.com/Stilt1234/Vanilla-Sounds"
 
         try:
-            remote = repo.create_remote("Vanilla-Sounds", "https://github.com/Stilt1234/Vanilla-Sounds", auth_url)
+            remote = repo.create_remote("Vanilla-Sounds", auth_url)
         except:
             remote = repo.remote("Vanilla-Sounds")
             remote.set_url(auth_url)
