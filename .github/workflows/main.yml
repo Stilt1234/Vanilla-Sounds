@@ -30,5 +30,6 @@ jobs:
       - name: Install required packages
         run: pip install -r "${{ github.workspace }}/requirements.txt"
           
-      - run: python "${{ github.workspace }}/main.py"
+      - name: Run main.py
         working-directory: ${{ github.workspace }}
+        run: python "${{ github.workspace }}/main.py"
