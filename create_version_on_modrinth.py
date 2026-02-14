@@ -21,15 +21,17 @@ def create_version(v: str):
             "primary_file": "file",
             "dependencies": []
         }
+        try:
+            with open(os.path.join(os.getcwd(), "Vanilla Sounds.zip"), "rb") as zip: 
+                files = {
+                    "data": (None, json.dumps(data), "application/json"),
+                    "file": ("Vanilla Sounds.zip", zip, "application/zip")
+                }
 
-        with open(os.path.join(os.getcwd(), "Vanilla Sounds.zip"), "rb") as zip: 
-            files = {
-                "data": (None, json.dumps(data), "application/json"),
-                "file": ("Vanilla Sounds.zip", zip, "application/zip")
-            }
-
-            print(session.post("https://api.modrinth.com/v2/version", files=files).text)
+                session.post("https://api.modrinth.com/v2/version", files=files)
+        except Exception as e:
+            if(os.path.exists(os.path.join(os.getcwd(), "Vanilla Sounds"))):
+                print(f"An unexpected error occured while trying to create and upload a version of Vanilla Sounds Resource Pack on modrinth for Minecraft version {v} : {e}")
+            return
 
     print(f"Created a new version and uploaded Vanilla Sounds Resource Pack for Minecraft version {v}.")
-
-create_version("1.6.1")

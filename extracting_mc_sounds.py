@@ -3,7 +3,7 @@ import json, os, platform, shutil, sys
 def extract_sounds():
 
     # This section should work on any system as well
-    print("Your OS is " + platform.system())
+    print("The OS is " + platform.system())
     MC_ASSETS = os.path.join(os.getcwd(), "minecraft", "assets")
 
     # Find the latest json index file
@@ -22,7 +22,7 @@ def extract_sounds():
         data = json.load(read_file)
 
         # Find each line with MC_SOUNDS prefix
-        if(not MC_OBJECT_INDEX.__contains__("legacy.json")):
+        if(not MC_OBJECT_INDEX.__contains__("legacy.json") and not MC_OBJECT_INDEX.__contains__("pre-1.6.json")):
             files = {k : v["hash"] for (k, v) in data["objects"].items() if k.startswith(MC_SOUNDS)}
         else:
             files = {k : v["hash"] for (k, v) in data["objects"].items() if k.endswith(".ogg")}

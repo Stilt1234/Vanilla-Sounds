@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 s = requests.Session()
-s.headers.update({'User-Agent': 'Chrome',})
+s.headers.update({"User-Agent": "Stilt34/Vanilla Sounds", "Authorization": os.environ["MODRINTH_VS_PAT"]})
 page = s.get("https://minecraft.wiki/w/Pack_format")
 soup = BeautifulSoup(page.text, "html.parser")
 
@@ -38,20 +38,21 @@ def get_pack_format(v : str) -> str:
             if (ve > v and v > next(iter(v_pf)) and v < next(reversed(v_pf))):
                 return f
         
-        print("Pack format not found for the given version.")
-        return "0"
+        return "0" if not v < version.parse("1.6.1") else "-1"
 
-def create_pack_mcmeta(v : str):
-    if(version.parse(v) < version.parse("1.6.1")):
-        print(f"Not creating pack.mcmeta file as Minecraft version {v} does not support resource packs.")
-        return
+def create_pack_file(v : str):
+    ext = "mcmeta"
+
+    if(get_pack_format(v) == "-1"):
+        print(f"Minecraft version {v} does not support Resource Packs hence using -1 as pack format so that it can be uploaded to Modrinth.")
+        ext = "txt"
 
     if(get_pack_format(v) == "0"):
         print("Pack format not found for the given version.")
         return
 
-    with open(os.path.join(os.getcwd(), "Vanilla Sounds", "pack.mcmeta"), "w") as f:
-        desc = json.loads((s.get(os.environ["MODRINTH_VS_API"]).text, "html.parser").text)["description"]
+    with open(os.path.join(os.getcwd(), "Vanilla Sounds", f"pack.{ext}"), "w") as f:
+        desc = json.loads((s.get(os.environ["MODRINTH_VS_API"])).text)["description"]
         
         j = {
             "pack": {
@@ -73,4 +74,4 @@ def create_pack_mcmeta(v : str):
         else:
             f.write(json.dumps(j, indent=4))
     
-    print(f"Created pack.mcmeta file for Minecraft version {v}.")
+    print(f"Created pack.{ext} file for Minecraft version {v}.")
