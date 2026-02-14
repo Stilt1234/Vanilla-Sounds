@@ -14,6 +14,9 @@ jobs:
     permissions:
       contents: write
     environment: Tokens
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}
     env:
       GITHUB_TOKEN: ${{ github.token }}
       MODRINTH_VS_API: ${{ secrets.MODRINTH_VS_API }}
