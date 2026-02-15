@@ -28,7 +28,10 @@ def create_version(v: str):
                     "file": ("Vanilla Sounds.zip", zip, "application/zip")
                 }
 
-                session.post("https://api.modrinth.com/v2/version", files=files)
+                response = session.post("https://api.modrinth.com/v2/version", files=files)
+
+                if(response.status_code != 204):
+                    print(f"An invalid response was sent to Modrinth while uploading Vanilla Sounds.zip file : {response.text}")
         except Exception as e:
             if(os.path.exists(os.path.join(os.getcwd(), "Vanilla Sounds"))):
                 print(f"An unexpected error occured while trying to create and upload a version of Vanilla Sounds Resource Pack on modrinth for Minecraft version {v} : {e}")
