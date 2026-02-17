@@ -2,7 +2,7 @@ import minecraft_launcher_lib as mc
 import os
 import shutil
 import create_pack_mcmeta_file
-import update_repo
+#import update_repo
 import extracting_mc_sounds as mc_sounds
 import extracting_sounds_json_file as mc_sounds_json_file
 import replace_tag_adder
@@ -10,9 +10,10 @@ import create_readme_file
 import create_pack_png_file
 import create_version_on_modrinth
 import exclude_already_uploaded_versions_on_modrinth
+import make_zip_file
 
-update_repo.update_repo_readme()
-update_repo.update_repo_desc()
+#update_repo.update_repo_readme()
+#update_repo.update_repo_desc()
 
 list_to_install = []
 
@@ -56,7 +57,8 @@ for v in reversed(list_to_install):
     create_pack_png_file.create_pack_png(v)
     create_pack_mcmeta_file.create_pack_file(v)
 
-    shutil.make_archive("Vanilla Sounds", "zip", os.path.join(os.getcwd(), "Vanilla Sounds"), ".")
+    #shutil.make_archive("Vanilla Sounds", "zip", os.path.join(os.getcwd(), "Vanilla Sounds"), ".")
+    make_zip_file.make_zip()
 
     create_version_on_modrinth.create_version(v)
 
