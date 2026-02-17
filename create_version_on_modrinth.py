@@ -30,8 +30,11 @@ def create_version(v: str):
 
                 response = session.post("https://api.modrinth.com/v2/version", files=files)
 
-                if(response.status_code != 204):
-                    print(f"An invalid response was sent to Modrinth while uploading Vanilla Sounds.zip file : {response.text}")
+                if(response.status_code != 204 and response.status_code == 413):
+                    print(f"Could not create a version on Modrinth as Vanilla Sounds.zip file size is {os.path.getsize(os.path.join(os.getcwd(), "Vanilla Sounds.zip"))} which is too large to upload.")
+                elif(response.status_code != 204):
+                    print(f"An invalid response with status code {response.status_code} was sent to Modrinth while uploading Vanilla Sounds.zip file : {response.text}")
+        
         except Exception as e:
             if(os.path.exists(os.path.join(os.getcwd(), "Vanilla Sounds"))):
                 print(f"An unexpected error occured while trying to create and upload a version of Vanilla Sounds Resource Pack on modrinth for Minecraft version {v} : {e}")
