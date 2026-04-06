@@ -1,6 +1,7 @@
 import os
 import json
 from requests import Session
+import make_zip_file
 
 def create_version(v: str):
     with Session() as session:
@@ -31,7 +32,36 @@ def create_version(v: str):
                 response = session.post("https://api.modrinth.com/v2/version", files=files)
 
                 if(response.status_code != 204 and response.status_code == 413):
-                    print(f"Could not create a version on Modrinth as Vanilla Sounds.zip file size is {os.path.getsize(os.path.join(os.getcwd(), "Vanilla Sounds.zip"))} which is too large to upload.")
+                    make_zip_file.make_zip(True)
+
+                    data = {
+                            "name": f"Vanilla Sounds Minecraft {v}",
+                            "version_number": "1.0.0",
+                            "changelog": f"## Vanilla Sounds Resource Pack for Minecraft version {v}.",
+                            "game_versions": [v],
+                            "version_type": "release",
+                            "loaders": ["minecraft"],
+                            "featured": True,
+                            "status": "listed",
+                            "project_id": json.loads(session.get(os.environ["MODRINTH_VS_API"]).text)["id"],
+                            "file_parts": ["game_sounds", "music"],
+                            "primary_file": "game_sounds",
+                            "dependencies": []
+                        }
+                    
+                    with open(os.path.join(os.getcwd(), "Vanilla Sounds - Game Sounds.zip"), "rb") as gs: 
+                        with open(os.path.join(os.getcwd(), "Vanilla Sounds - Music.zip"), "rb") as m: 
+                            files = {
+                                "data": (None, json.dumps(data), "application/json"),
+                                "game_sounds": ("Vanilla Sounds - Game Sounds.zip", gs, "application/zip"),
+                                "music": ("Vanilla Sounds - Music.zip", m, "application/zip")
+                            }
+
+                            response = session.post("https://api.modrinth.com/v2/version", files=files)
+
+                            if(response.status_code != 204):
+                                print(f"An invalid response with status code {response.status_code} was sent to Modrinth while uploading both Vanilla Sounds - Game Sounds.zip and Vanilla Sounds - Music.zip files : {response.text}")
+
                 elif(response.status_code != 204):
                     print(f"An invalid response with status code {response.status_code} was sent to Modrinth while uploading Vanilla Sounds.zip file : {response.text}")
         
