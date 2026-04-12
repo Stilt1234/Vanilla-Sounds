@@ -4,6 +4,12 @@ import json
 import minecraft_launcher_lib as mc
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+import time
 
 s = requests.Session()
 s.headers.update({"User-Agent": "Stilt34/Vanilla Sounds", "Authorization": os.environ["MODRINTH_VS_PAT"]})
@@ -38,16 +44,44 @@ def get_pack_format(v : str) -> str:
             if (ve > v and v > next(iter(v_pf)) and v < next(reversed(v_pf))):
                 return f
         
-        return "0" if not v < version.parse("1.6.1") else "-1"
+        return get_pack_format_third_table(v) if not v < version.parse("1.6.1") else "-1"
+
+def get_pack_format_third_table(v : str) -> str:
+    driver = webdriver.Chrome()
+    driver.get("https://minecraft.wiki/w/Pack_format")
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    button = WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.XPATH, "//th[contains(., 'Client version')]")))
+
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", button)
+
+    for i in range(3):
+        driver.execute_script("arguments[0].click();", button)
+    soup = BeautifulSoup(driver.page_source, "html.parser")
+    table = soup.select("table.wikitable.sortable.jquery-tablesorter").pop()
+    try:
+        return table.find("a", string=f"Java Edition {v}").find_parent("tr").find_all("td")[1].text
+    except:
+        return get_pack_format_website(v)
+
+def get_pack_format_website(v : str):
+    s = requests.Session()
+    s.headers.update({"User-Agent": "Stilt34/Vanilla Sounds", "Authorization": os.environ["MODRINTH_VS_PAT"]})
+    page = s.get(f"https://minecraft.wiki/w/Java_Edition_{v}")
+    soup = BeautifulSoup(page.text, "html.parser")
+    try:
+        return soup.find("a", string="Resource pack format").parent.parent.parent.find("td").text
+    except:
+        return "0"
 
 def create_pack_file(v : str):
     ext = "mcmeta"
+    format = get_pack_format(v)
 
-    if(get_pack_format(v) == "-1"):
+    if(format == "-1"):
         print(f"Minecraft version {v} does not support Resource Packs hence using -1 as pack format so that it can be uploaded to Modrinth.")
         ext = "txt"
 
-    if(get_pack_format(v) == "0"):
+    if(format == "0"):
         print("Pack format not found for the given version.")
         return
 
@@ -57,19 +91,19 @@ def create_pack_file(v : str):
         j = {
             "pack": {
                 "description": desc,
-                "pack_format": get_pack_format(v),
+                "pack_format": format,
                 }
             }
 
         j_1_21_9 = {
             "pack": {
                 "description": desc,
-                "min_format" : get_pack_format(v),
-                "max_format" : get_pack_format(v)
+                "min_format" : format,
+                "max_format" : format
                 }
             }
         
-        if(float(get_pack_format(v)) >= 69.0):
+        if(float(format) >= 69.0):
             f.write(json.dumps(j_1_21_9, indent=4))
         else:
             f.write(json.dumps(j, indent=4))

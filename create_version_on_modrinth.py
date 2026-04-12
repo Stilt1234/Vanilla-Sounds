@@ -22,6 +22,7 @@ def create_version(v: str):
             "primary_file": "file",
             "dependencies": []
         }
+        
         try:
             with open(os.path.join(os.getcwd(), "Vanilla Sounds.zip"), "rb") as zip: 
                 files = {
@@ -64,10 +65,12 @@ def create_version(v: str):
 
                 elif(response.status_code != 204):
                     print(f"An invalid response with status code {response.status_code} was sent to Modrinth while uploading Vanilla Sounds.zip file : {response.text}")
+                
+                print(f"Created a new version and uploaded Vanilla Sounds Resource Pack for Minecraft version {v}.")
         
         except Exception as e:
             if(os.path.exists(os.path.join(os.getcwd(), "Vanilla Sounds"))):
-                print(f"An unexpected error occured while trying to create and upload a version of Vanilla Sounds Resource Pack on modrinth for Minecraft version {v} : {e}")
+                print(f"An unexpected error occured while trying to create and upload a version of Vanilla Sounds Resource Pack on modrinth for Minecraft version {v} : {e}.")
             return
 
-    print(f"Created a new version and uploaded Vanilla Sounds Resource Pack for Minecraft version {v}.")
+    
