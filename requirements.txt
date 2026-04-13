@@ -3,5 +3,6 @@ GitPython==3.1.46
 minecraft_launcher_lib==8.0
 packaging==26.0
 Pillow==12.2.0
+PyGithub==2.9.0
 Requests==2.33.1
 selenium==4.43.0
