@@ -12,6 +12,8 @@ import create_version_on_modrinth
 import exclude_already_uploaded_versions_on_modrinth
 import make_zip_file
 
+print("Vanilla Sounds Resource Pack creation has been initialised.")
+
 update_repo.update_repo_readme()
 update_repo.update_repo_desc()
 
