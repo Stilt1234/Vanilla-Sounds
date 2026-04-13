@@ -21,6 +21,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       MODRINTH_VS_API: ${{ secrets.MODRINTH_VS_API }}
       MODRINTH_VS_PAT: ${{ secrets.MODRINTH_VS_PAT }}
+      VS_NUM_DOWNLOAD_RETRIES: ${{ secrets.VS_NUM_DOWNLOAD_RETRIES }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
