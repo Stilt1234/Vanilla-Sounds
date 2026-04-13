@@ -17,7 +17,7 @@ import make_zip_file
 
 # TODO: Update requirements.txt
 
-n = os.environ["VS_NUM_DOWNLOAD_RETRIES"]
+n = int(os.environ["VS_NUM_DOWNLOAD_RETRIES"])
 
 list_to_install = []
 
