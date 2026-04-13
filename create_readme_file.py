@@ -11,4 +11,4 @@ def create_readme(v : str):
     else:
         with open(os.path.join(os.getcwd(), "Vanilla Sounds", "README-PLS.txt"), "w") as r:
             r.write(f"Minecraft version {v} does not support resource packs.\nThis folder's purpose is to provide sound files to old versions of minecraft for anyone who needs it.")
-    print("Readme file has been created.")
+    print("README file has been created.")

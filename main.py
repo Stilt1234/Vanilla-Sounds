@@ -2,7 +2,7 @@ import minecraft_launcher_lib as mc
 import os
 import shutil
 import create_pack_mcmeta_file
-# import update_repo
+import update_repo
 import extracting_mc_sounds as mc_sounds
 import extracting_sounds_json_file as mc_sounds_json_file
 import replace_tag_adder
@@ -12,8 +12,8 @@ import create_version_on_modrinth
 import exclude_already_uploaded_versions_on_modrinth
 import make_zip_file
 
-# update_repo.update_repo_readme()
-# update_repo.update_repo_desc()
+update_repo.update_repo_readme()
+update_repo.update_repo_desc()
 
 # TODO: Update requirements.txt
 
