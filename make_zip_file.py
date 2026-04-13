@@ -16,6 +16,8 @@ def make_zip(split = False):
     else:
         vs_assets = os.path.join(os.getcwd(), "Vanilla Sounds", "assets")
 
+        print(os.path.exists(os.path.join(os.getcwd(), "Vanilla Sounds - Music", "assets", "minecraft", "sounds", "music")))
+
         shutil.move(os.path.join(vs_assets, "minecraft", "sounds", "music"), os.path.join(os.getcwd(), "Vanilla Sounds - Music", "assets", "minecraft", "sounds", "music"))
         shutil.copy(os.path.join(vs_assets, "minecraft", "sounds.json"), os.path.join(os.getcwd(), "Vanilla Sounds - Music", "assets", "minecraft", "sounds.json"))
         shutil.copy(os.path.join(vs_assets, "minecraft", "WARNING-README.txt"), os.path.join(os.getcwd(), "Vanilla Sounds - Music", "assets", "minecraft", "WARNING-README.txt"))
